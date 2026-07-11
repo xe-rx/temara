@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Reem+Kufi:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background-color:#07130f;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='none' stroke='%23caa46a' stroke-opacity='0.07'%3E%3Crect x='18' y='18' width='28' height='28'/%3E%3Crect x='18' y='18' width='28' height='28' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E");font-family:'Space Mono',ui-monospace,monospace}
+  a{color:#e0b168;text-decoration:none}
+  a:hover{color:#efcf94}
+  input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  input[type=number]{-moz-appearance:textfield}
+  @keyframes bp-fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes bp-scale{from{opacity:0;transform:scale(.965)}to{opacity:1;transform:none}}
+  @keyframes bp-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+</style>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#123027"/><g fill="none" stroke="#e0b168" stroke-width="2.4"><rect x="30" y="28" width="40" height="44" rx="2"/><line x1="30" y1="43" x2="70" y2="43"/><line x1="30" y1="57" x2="70" y2="57"/><line x1="50" y1="28" x2="50" y2="72"/></g></svg></template>
+</helmet>
+<div style="min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;padding:40px 24px;background:radial-gradient(125% 125% at 50% -10%, rgba(20,56,44,.72) 0%, rgba(10,36,28,.84) 55%, rgba(5,22,16,.92) 100%)">
+
+  <sc-if value="{{ locked }}" hint-placeholder-val="{{ true }}">
+    <div style="width:100%;max-width:400px;animation:bp-scale .5s ease both">
+      <div style="display:flex;justify-content:center;margin-bottom:16px">
+        <div style="display:inline-flex;border:1px solid rgba(233,215,183,.3);border-radius:20px;overflow:hidden">
+          <button onClick="{{ setNl }}" style="cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;padding:5px 14px;border:none;background:{{ nlBg }};color:{{ nlCol }};transition:background .15s">NL</button>
+          <button onClick="{{ setFr }}" style="cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;padding:5px 14px;border:none;background:{{ frBg }};color:{{ frCol }};transition:background .15s">FR</button>
+        </div>
+      </div>
+      <div style="position:relative;background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:14px;padding:44px 38px 38px;box-shadow:0 30px 80px -30px rgba(0,0,0,.7)">
+        <div style="position:absolute;inset:7px;border:1px solid rgba(233,215,183,.14);border-radius:9px;pointer-events:none"></div>
+
+        <div style="display:flex;justify-content:center;margin-bottom:22px">
+          <div style="position:relative;width:78px;height:98px;border:1.5px solid #e0b168;border-radius:39px 39px 5px 5px / 46px 46px 5px 5px;display:flex;align-items:flex-end;justify-content:center">
+            <div style="width:46px;height:60px;margin-bottom:-1px;border:1.5px solid rgba(224,177,104,.55);border-bottom:none;border-radius:23px 23px 0 0 / 30px 30px 0 0"></div>
+            <div style="position:absolute;top:34px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:#d97a48;box-shadow:0 0 0 3px rgba(217,122,72,.22)"></div>
+          </div>
+        </div>
+
+        <div style="text-align:center;font-family:'Reem Kufi',sans-serif;font-size:23px;letter-spacing:5px;color:#e0b168;margin-bottom:3px">تمارة</div>
+        <h1 style="margin:0 0 6px;text-align:center;font-family:'Marcellus',serif;font-weight:400;font-size:26px;letter-spacing:1px;color:#f3e6cb">{{ t.loginTitle }}</h1>
+        <p style="margin:0 0 26px;text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.5)">{{ t.enterCode }}</p>
+
+        <div style="display:flex;flex-direction:column;gap:12px;animation:{{ shakeAnim }}">
+          <input type="password" inputmode="numeric" placeholder="• • •" value="{{ pw }}" onInput="{{ onPw }}" onKeyDown="{{ onKey }}"
+            style="width:100%;text-align:center;font-family:'Space Mono',monospace;font-size:22px;letter-spacing:10px;color:#f3e6cb;background:#0a1e18;border:1.5px solid rgba(233,215,183,.3);border-radius:9px;padding:14px 12px;outline:none"
+            style-focus="border-color:#e0b168" />
+          <button onClick="{{ onSubmit }}"
+            style="width:100%;cursor:pointer;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#08201a;background:#e0b168;border:none;border-radius:9px;padding:14px 12px;transition:background .18s"
+            style-hover="background:#efcf94">{{ t.unlock }}</button>
+        </div>
+
+        <sc-if value="{{ err }}" hint-placeholder-val="{{ false }}">
+          <p style="margin:14px 0 0;text-align:center;font-size:11px;letter-spacing:1px;color:#e89a72">{{ t.wrongCode }}</p>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ unlocked }}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%;max-width:1260px;animation:bp-fade .55s ease both">
+
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(233,215,183,.2)">
+        <div>
+          <div style="font-family:'Reem Kufi',sans-serif;font-size:18px;letter-spacing:3px;color:#e0b168;margin-bottom:2px">تمارة</div>
+          <h1 style="margin:0 0 3px;font-family:'Marcellus',serif;font-weight:400;font-size:30px;letter-spacing:1px;color:#f3e6cb">{{ t.title }}</h1>
+          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.5)">{{ t.subtitle }}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+          <div style="display:inline-flex;border:1px solid rgba(233,215,183,.3);border-radius:20px;overflow:hidden">
+            <button onClick="{{ setNl }}" style="cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;padding:5px 14px;border:none;background:{{ nlBg }};color:{{ nlCol }};transition:background .15s">NL</button>
+            <button onClick="{{ setFr }}" style="cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;padding:5px 14px;border:none;background:{{ frBg }};color:{{ frCol }};transition:background .15s">FR</button>
+          </div>
+          <div style="text-align:right;font-size:10.5px;letter-spacing:1.5px;color:rgba(233,215,183,.55);line-height:1.7">
+            <div>{{ t.dwg }}</div>
+            <div>{{ t.levels }}</div>
+            <div style="color:#d97a48">{{ t.scale }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;padding:9px 13px;border:1px dashed rgba(217,122,72,.5);border-radius:7px;background:rgba(217,122,72,.08)">
+        <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#08201a;background:#e89a72;padding:3px 8px;border-radius:4px">{{ t.estimateTag }}</span>
+        <span style="font-size:11px;letter-spacing:.5px;color:#e89a72">{{ t.estimate }}</span>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:22px;flex-wrap:wrap">
+
+        <aside style="flex:1 1 320px;min-width:300px;max-width:360px;display:flex;flex-direction:column;gap:16px">
+          <div style="background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:8px;overflow:hidden">
+            <button onClick="{{ toggleFund }}" style="width:100%;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;background:rgba(224,177,104,.08);border:none;border-bottom:1px solid rgba(233,215,183,.18);padding:14px 16px;text-align:left">
+              <span style="display:flex;align-items:center;gap:9px;font-family:'Marcellus',serif;font-size:16px;color:#e0b168;letter-spacing:.5px">◆ {{ t.fund }}</span>
+              <span style="font-size:12px;color:rgba(233,215,183,.6)">{{ fundCaret }}</span>
+            </button>
+
+            <sc-if value="{{ fundOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:16px 16px 18px">
+
+                <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4);margin-bottom:9px">{{ t.plot }}</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px">
+                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.plotValue }}</span>
+                  <span style="display:flex;align-items:center;gap:5px"><span style="font-size:12px;color:rgba(233,215,183,.5)">€</span><input type="number" inputmode="numeric" value="{{ ground }}" onInput="{{ onGround }}" style="width:104px;text-align:right;font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:5px;padding:5px 7px;outline:none" style-focus="border-color:#e0b168" /></span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
+                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.cleanup }}</span>
+                  <span style="display:flex;align-items:center;gap:5px"><span style="font-size:12px;color:#e89a72">−€</span><input type="number" inputmode="numeric" value="{{ cleanup }}" onInput="{{ onCleanup }}" style="width:104px;text-align:right;font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:5px;padding:5px 7px;outline:none" style-focus="border-color:#e0b168" /></span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:11px;border-top:1px solid rgba(233,215,183,.18)">
+                  <span style="font-size:12px;color:#f3e6cb">{{ t.net }}</span>
+                  <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:15px;color:#e0b168">{{ netFmt }}</span>
+                </div>
+
+                <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4);margin:18px 0 9px">{{ t.shares }}</div>
+                <div style="font-size:10.5px;color:rgba(233,215,183,.55);line-height:1.55;margin-bottom:10px">{{ t.sharesNote }}</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.eachBrother }}</span>
+                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb">{{ brFmt }}</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.eachSister }}</span>
+                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb">{{ siFmt }}</span>
+                </div>
+
+                <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4);margin:18px 0 9px">{{ t.payouts }}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">
+                  <span style="font-size:10.5px;padding:3px 8px;border:1px solid rgba(233,215,183,.25);border-radius:20px;color:rgba(233,215,183,.85)">Abdellah</span>
+                  <span style="font-size:10.5px;padding:3px 8px;border:1px solid rgba(233,215,183,.25);border-radius:20px;color:rgba(233,215,183,.85)">Rachid</span>
+                  <span style="font-size:10.5px;padding:3px 8px;border:1px solid rgba(233,215,183,.25);border-radius:20px;color:rgba(233,215,183,.85)">Ismael</span>
+                  <span style="font-size:10.5px;padding:3px 8px;border:1px solid rgba(233,215,183,.25);border-radius:20px;color:rgba(233,215,183,.85)">Abdelkarim</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.fourBrother }}</span>
+                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb">{{ payoutFmt }}</span>
+                </div>
+
+                <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4);margin:18px 0 9px">{{ t.appliedDisc }}</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.nordinShare }}</span>
+                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#d97a48">−{{ brFmt }}</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.fathmaShare }}</span>
+                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#d97a48">−{{ siFmt }}</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.heddaShare }}</span>
+                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#d97a48">−{{ siFmt }}</span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:8px;padding:16px">
+            <div style="font-family:'Marcellus',serif;font-size:16px;color:#e0b168;letter-spacing:.5px;margin-bottom:12px">◆ {{ t.pricing }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
+              <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.pricePerM2 }}</span>
+              <span style="display:flex;align-items:center;gap:5px"><span style="font-size:12px;color:rgba(233,215,183,.5)">€</span><input type="number" inputmode="numeric" value="{{ ppsm }}" onInput="{{ onPpsm }}" style="width:104px;text-align:right;font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:5px;padding:5px 7px;outline:none" style-focus="border-color:#e0b168" /></span>
+            </div>
+            <div style="font-size:10.5px;line-height:1.6;color:rgba(233,215,183,.55);padding-top:11px;border-top:1px solid rgba(233,215,183,.15)">{{ t.priceNoteA }}<span style="color:#e0b168">m² × €/m²</span>{{ t.priceNoteB }}</div>
+          </div>
+        </aside>
+
+        <div style="flex:2 1 620px;min-width:520px">
+          <div style="position:relative;background:#123027;border:1.5px solid rgba(233,215,183,.45);border-radius:6px;padding:34px 30px 26px;box-shadow:0 30px 90px -40px rgba(0,0,0,.75);overflow:hidden">
+            <div style="position:absolute;top:11px;left:11px;width:15px;height:15px;pointer-events:none;opacity:.45;z-index:2"><div style="position:absolute;inset:0;background:#e0b168"></div><div style="position:absolute;inset:0;background:#e0b168;transform:rotate(45deg)"></div></div>
+            <div style="position:absolute;top:11px;right:11px;width:15px;height:15px;pointer-events:none;opacity:.45;z-index:2"><div style="position:absolute;inset:0;background:#e0b168"></div><div style="position:absolute;inset:0;background:#e0b168;transform:rotate(45deg)"></div></div>
+            <div style="position:absolute;bottom:11px;left:11px;width:15px;height:15px;pointer-events:none;opacity:.45;z-index:2"><div style="position:absolute;inset:0;background:#e0b168"></div><div style="position:absolute;inset:0;background:#e0b168;transform:rotate(45deg)"></div></div>
+            <div style="position:absolute;bottom:11px;right:11px;width:15px;height:15px;pointer-events:none;opacity:.45;z-index:2"><div style="position:absolute;inset:0;background:#e0b168"></div><div style="position:absolute;inset:0;background:#e0b168;transform:rotate(45deg)"></div></div>
+
+            <sc-if value="{{ grid }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(233,215,183,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(233,215,183,.06) 1px,transparent 1px);background-size:26px 26px"></div>
+            </sc-if>
+
+            <div style="position:relative">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px">
+                <span style="font-size:11px;letter-spacing:2px;color:#e0b168">{{ t.terrace }}</span>
+                <span style="font-size:10px;letter-spacing:1px;color:rgba(233,215,183,.4)">▲ N</span>
+              </div>
+              <div style="height:16px;border:1px solid rgba(233,215,183,.4);border-bottom:none;border-radius:6px 6px 0 0;background:repeating-linear-gradient(45deg,transparent,transparent 7px,rgba(233,215,183,.12) 7px,rgba(233,215,183,.12) 9px)"></div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;position:relative">
+                <div style="position:absolute;left:-22px;top:0;bottom:0;display:flex;align-items:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:3px;color:rgba(233,215,183,.5)">{{ f3 }}</span></div>
+                <sc-for list="{{ floor3 }}" as="u" hint-placeholder-count="3">
+                  <div data-name="{{ u.name }}" onClick="{{ onSelect }}" style="cursor:pointer;position:relative;height:166px;border:1.4px solid rgba(233,215,183,.75);border-radius:4px;background:rgba(233,215,183,.03);padding:13px 10px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .18s,border-color .18s" style-hover="background:rgba(224,177,104,.1);border-color:#e0b168">
+                    <div style="font-family:'Marcellus',serif;font-size:17px;color:#f3e6cb;letter-spacing:.5px;line-height:1.15">{{ u.name }}</div>
+                    <div style="font-size:8.5px;letter-spacing:2px;color:rgba(233,215,183,.45);margin-top:2px">{{ u.code }}</div>
+                    <div style="flex:1"></div>
+                    <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
+                      <input type="number" inputmode="numeric" placeholder="0" value="{{ u.sqmVal }}" data-name="{{ u.name }}" onInput="{{ onSqm }}" onClick="{{ stop }}" style="width:54px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:4px;padding:3px 5px;outline:none" style-focus="border-color:#e0b168" />
+                      <span style="font-size:10px;color:rgba(233,215,183,.55)">m²</span>
+                    </div>
+                    <div style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#e0b168;letter-spacing:.5px">{{ u.price }}</div>
+                    <sc-if value="{{ u.hasDisc }}" hint-placeholder-val="{{ false }}">
+                      <div style="margin-top:3px;font-size:8.5px;letter-spacing:.3px;color:#d97a48">{{ u.discLabel }}</div>
+                    </sc-if>
+                    <div style="width:30px;height:20px;position:absolute;bottom:0;left:50%;transform:translateX(-50%);border:1.2px solid rgba(233,215,183,.45);border-bottom:none;border-radius:15px 15px 0 0 / 20px 20px 0 0"></div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="height:8px;margin-top:4px;border-top:1px dashed rgba(233,215,183,.28)"></div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:6px;position:relative">
+                <div style="position:absolute;left:-22px;top:0;bottom:0;display:flex;align-items:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:3px;color:rgba(233,215,183,.5)">{{ f2 }}</span></div>
+                <sc-for list="{{ floor2 }}" as="u" hint-placeholder-count="3">
+                  <div data-name="{{ u.name }}" onClick="{{ onSelect }}" style="cursor:pointer;position:relative;height:166px;border:1.4px solid rgba(233,215,183,.75);border-radius:4px;background:rgba(233,215,183,.03);padding:13px 10px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .18s,border-color .18s" style-hover="background:rgba(224,177,104,.1);border-color:#e0b168">
+                    <div style="font-family:'Marcellus',serif;font-size:17px;color:#f3e6cb;letter-spacing:.5px;line-height:1.15">{{ u.name }}</div>
+                    <div style="font-size:8.5px;letter-spacing:2px;color:rgba(233,215,183,.45);margin-top:2px">{{ u.code }}</div>
+                    <div style="flex:1"></div>
+                    <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
+                      <input type="number" inputmode="numeric" placeholder="0" value="{{ u.sqmVal }}" data-name="{{ u.name }}" onInput="{{ onSqm }}" onClick="{{ stop }}" style="width:54px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:4px;padding:3px 5px;outline:none" style-focus="border-color:#e0b168" />
+                      <span style="font-size:10px;color:rgba(233,215,183,.55)">m²</span>
+                    </div>
+                    <div style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#e0b168;letter-spacing:.5px">{{ u.price }}</div>
+                    <sc-if value="{{ u.hasDisc }}" hint-placeholder-val="{{ false }}">
+                      <div style="margin-top:3px;font-size:8.5px;letter-spacing:.3px;color:#d97a48">{{ u.discLabel }}</div>
+                    </sc-if>
+                    <div style="width:30px;height:20px;position:absolute;bottom:0;left:50%;transform:translateX(-50%);border:1.2px solid rgba(233,215,183,.45);border-bottom:none;border-radius:15px 15px 0 0 / 20px 20px 0 0"></div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="height:8px;margin-top:4px;border-top:1px dashed rgba(233,215,183,.28)"></div>
+
+              <div style="display:grid;grid-template-columns:1fr .62fr 1fr;gap:10px;margin-top:6px;position:relative">
+                <div style="position:absolute;left:-22px;top:0;bottom:0;display:flex;align-items:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:3px;color:rgba(233,215,183,.5)">{{ f1 }}</span></div>
+                <sc-for list="{{ floor1 }}" as="u" hint-placeholder-count="3">
+                  <div data-name="{{ u.name }}" onClick="{{ onSelect }}" style="cursor:pointer;position:relative;height:172px;border:1.4px solid rgba(233,215,183,.75);border-radius:4px;background:rgba(233,215,183,.03);padding:13px 8px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .18s,border-color .18s" style-hover="background:rgba(224,177,104,.1);border-color:#e0b168">
+                    <div style="font-family:'Marcellus',serif;font-size:16px;color:#f3e6cb;letter-spacing:.5px;line-height:1.15">{{ u.name }}</div>
+                    <div style="font-size:8.5px;letter-spacing:2px;color:rgba(233,215,183,.45);margin-top:2px">{{ u.code }}</div>
+                    <div style="flex:1"></div>
+                    <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
+                      <input type="number" inputmode="numeric" placeholder="0" value="{{ u.sqmVal }}" data-name="{{ u.name }}" onInput="{{ onSqm }}" onClick="{{ stop }}" style="width:52px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:4px;padding:3px 5px;outline:none" style-focus="border-color:#e0b168" />
+                      <span style="font-size:10px;color:rgba(233,215,183,.55)">m²</span>
+                    </div>
+                    <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#e0b168;letter-spacing:.5px">{{ u.price }}</div>
+                    <sc-if value="{{ u.hasDisc }}" hint-placeholder-val="{{ false }}">
+                      <div style="margin-top:3px;font-size:8.5px;letter-spacing:.3px;color:#d97a48">{{ u.discLabel }}</div>
+                    </sc-if>
+                    <div style="width:26px;height:18px;position:absolute;bottom:0;left:50%;transform:translateX(-50%);border:1.2px solid rgba(233,215,183,.45);border-bottom:none;border-radius:13px 13px 0 0 / 18px 18px 0 0"></div>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="margin-top:8px;height:14px;border:1px solid rgba(233,215,183,.4);border-radius:0 0 6px 6px;background:repeating-linear-gradient(45deg,transparent,transparent 7px,rgba(233,215,183,.12) 7px,rgba(233,215,183,.12) 9px)"></div>
+              <sc-if value="{{ dims }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:center;gap:8px;margin-top:12px;color:rgba(233,215,183,.5);font-size:9.5px;letter-spacing:1px">
+                  <span>|←</span>
+                  <span style="flex:1;height:1px;background:repeating-linear-gradient(90deg,rgba(233,215,183,.4),rgba(233,215,183,.4) 4px,transparent 4px,transparent 8px)"></span>
+                  <span>{{ t.frontage }}</span>
+                  <span style="flex:1;height:1px;background:repeating-linear-gradient(90deg,rgba(233,215,183,.4),rgba(233,215,183,.4) 4px,transparent 4px,transparent 8px)"></span>
+                  <span>→|</span>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:8px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:space-between">
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.totalArea }}</span>
+              <span style="font-family:'Space Mono',monospace;font-size:15px;color:#f3e6cb">{{ areaFmt }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.gross }}</span>
+              <span style="font-family:'Space Mono',monospace;font-size:15px;color:#f3e6cb">{{ grossFmt }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.discApplied }}</span>
+              <span style="font-family:'Space Mono',monospace;font-size:15px;color:#d97a48">−{{ discTotalFmt }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.netColl }}</span>
+              <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:#e0b168">{{ netTotalFmt }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1300,&quot;height&quot;:900},&quot;grid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Blueprint&quot;},&quot;dims&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Blueprint&quot;}}">
+const T = {
+  nl: {
+    loginTitle: 'Huis Temara', enterCode: 'Voer toegangscode in',
+    unlock: 'Ontgrendelen →', wrongCode: 'Onjuiste code — probeer opnieuw.', hint: 'Hint — de code is ',
+    title: 'Huis Temara — Plattegronden', subtitle: 'Temara · Rabat, Marokko',
+    dwg: 'DWG-01 · WOONGEBOUW', levels: '3 VERDIEPINGEN · 9 WONINGEN', scale: 'SCHAAL 1:100',
+    fund: 'Erfenisfonds', plot: 'De grond', plotValue: 'Waarde van de grond', cleanup: 'Minus sloop & opruiming',
+    net: 'Netto te verdelen', shares: 'Aandelen — 7 broers · 2 zussen',
+    sharesNote: 'Zussen ontvangen een half aandeel van een broer.',
+    eachBrother: 'Elke broer (×7)', eachSister: 'Elke zus (×2)', payouts: 'Contante uitbetalingen',
+    fourBrother: '4 × broeraandeel', appliedDisc: 'Erfdeel verrekend met de woning',
+    nordinShare: 'Nordin — 1 broeraandeel', fathmaShare: 'Fathma — zusaandeel', heddaShare: 'Hedda — zusaandeel',
+    pricing: 'Woningprijzen', pricePerM2: 'Prijs per m²',
+    priceNoteA: 'Prijs per woning = ', priceNoteB: ' − erfdeel. Vul de m² per woning in op de plattegrond →',
+    terrace: '◆ DAKTERRAS', floor: 'VERDIEPING', frontage: 'STRAATGEVEL',
+    totalArea: 'Totale oppervlakte', gross: 'Brutowaarde', discApplied: 'Erfdeel verrekend', netColl: 'Netto te innen',
+    inheritance: 'erfdeel', estimate: 'Alle bedragen en oppervlaktes zijn voorlopige schattingen.', estimateTag: 'SCHATTING', locale: 'nl-NL',
+  },
+  fr: {
+    loginTitle: 'Maison Temara', enterCode: "Entrez le code d'accès",
+    unlock: 'Déverrouiller →', wrongCode: 'Code incorrect — réessayez.', hint: 'Indice — le code est ',
+    title: 'Maison Temara — Plans', subtitle: 'Temara · Rabat, Maroc',
+    dwg: 'DWG-01 · RÉSIDENTIEL', levels: '3 NIVEAUX · 9 LOGEMENTS', scale: 'ÉCHELLE 1:100',
+    fund: 'Fonds successoral', plot: 'Le terrain', plotValue: 'Valeur du terrain', cleanup: 'Moins démolition & nettoyage',
+    net: 'Net à répartir', shares: 'Parts — 7 frères · 2 sœurs',
+    sharesNote: "Les sœurs reçoivent une demi-part de celle d'un frère.",
+    eachBrother: 'Chaque frère (×7)', eachSister: 'Chaque sœur (×2)', payouts: 'Versements en espèces',
+    fourBrother: '4 × part de frère', appliedDisc: "Part d'héritage déduite du logement",
+    nordinShare: 'Nordin — 1 part de frère', fathmaShare: 'Fathma — part de sœur', heddaShare: 'Hedda — part de sœur',
+    pricing: 'Prix des logements', pricePerM2: 'Prix par m²',
+    priceNoteA: 'Prix par logement = ', priceNoteB: " − part d'héritage. Saisissez les m² de chaque logement sur le plan →",
+    terrace: '◆ TERRASSE SUR LE TOIT', floor: 'NIVEAU', frontage: 'FAÇADE SUR RUE',
+    totalArea: 'Surface totale', gross: 'Valeur brute', discApplied: 'Héritage déduit', netColl: 'Net à percevoir',
+    inheritance: 'héritage', estimate: 'Tous les montants et surfaces sont des estimations provisoires.', estimateTag: 'ESTIMATION', locale: 'fr-FR',
+  },
+};
+
+class Component extends DCLogic {
+  state = {
+    pw: '', locked: true, err: false, shake: 0, selected: '',
+    fundOpen: false, lang: 'nl',
+    ground: 300000, cleanup: 20000, ppsm: 0,
+    sqm: { Nordin: 85, Said: 65, Karima: 85, Fathma: 85, Chadia: 65, Hedda: 85, Radi: 100, Studio: 30, 'Mourad Ouissam': 70 },
+  };
+
+  renderVals() {
+    const s = this.state;
+    const t = T[s.lang] || T.nl;
+    const fmt = (n) => (n < 0 ? '−€\u00a0' : '€\u00a0') + Math.abs(Math.round(n || 0)).toLocaleString(t.locale);
+    const num = (v) => (v === '' || v == null ? 0 : (parseFloat(v) || 0));
+
+    const BROTHERS = 7, SISTERS = 2;
+    const net = Math.max(0, s.ground - s.cleanup);
+    const denom = BROTHERS + SISTERS / 2;
+    const brotherShare = denom > 0 ? net / denom : 0;
+    const sisterShare = brotherShare / 2;
+    const payout = 4 * brotherShare;
+
+    const discMap = { Nordin: brotherShare, Fathma: sisterShare, Hedda: sisterShare };
+    const ppsm = s.ppsm;
+    const unit = (name, code) => {
+      const area = num(s.sqm[name]);
+      const disc = discMap[name] || 0;
+      const gross = area * ppsm;
+      const priced = area > 0 && ppsm > 0;
+      return {
+        name, code,
+        sqmVal: (s.sqm[name] === undefined || s.sqm[name] === null) ? '' : s.sqm[name],
+        price: priced ? '≈ ' + fmt(gross - disc) : '—',
+        hasDisc: disc > 0,
+        discLabel: disc > 0 ? '− ' + fmt(disc) + ' ' + t.inheritance : '',
+      };
+    };
+
+    const totalArea = Object.keys(s.sqm).reduce((a, k) => a + num(s.sqm[k]), 0);
+    const grossTotal = totalArea * ppsm;
+    const discTotal = brotherShare + 2 * sisterShare;
+    const netTotal = grossTotal - discTotal;
+
+    const active = '#e0b168', activeCol = '#08201a', inCol = 'rgba(233,215,183,.7)';
+    const isNl = s.lang === 'nl';
+
+    const check = () => {
+      if (this.state.pw.trim() === '123') this.setState({ locked: false, err: false });
+      else this.setState(st => ({ err: true, shake: st.shake + 1 }));
+    };
+
+    return {
+      t,
+      pw: s.pw, locked: s.locked, unlocked: !s.locked, err: s.err,
+      shakeAnim: s.shake ? `bp-shake .4s ease ${s.shake}` : 'none',
+      grid: this.props.grid ?? true, dims: this.props.dims ?? true,
+      fundOpen: s.fundOpen, fundCaret: s.fundOpen ? '▾' : '▸',
+
+      nlBg: isNl ? active : 'transparent', nlCol: isNl ? activeCol : inCol,
+      frBg: isNl ? 'transparent' : active, frCol: isNl ? inCol : activeCol,
+
+      ground: s.ground, cleanup: s.cleanup, ppsm: s.ppsm,
+      netFmt: fmt(net), brFmt: fmt(brotherShare), siFmt: fmt(sisterShare), payoutFmt: fmt(payout),
+
+      f3: t.floor + ' 3', f2: t.floor + ' 2', f1: t.floor + ' 1',
+
+      floor3: [unit('Nordin', 'APP 3A'), unit('Said', 'APP 3B'), unit('Karima', 'APP 3C')],
+      floor2: [unit('Fathma', 'APP 2A'), unit('Chadia', 'APP 2B'), unit('Hedda', 'APP 2C')],
+      floor1: [unit('Radi', 'APP 1A'), unit('Studio', 'APP 1B'), unit('Mourad Ouissam', 'APP 1C')],
+
+      areaFmt: totalArea.toLocaleString(t.locale) + ' m²',
+      grossFmt: '≈ ' + fmt(grossTotal), discTotalFmt: fmt(discTotal), netTotalFmt: '≈ ' + fmt(netTotal),
+
+      setNl: () => this.setState({ lang: 'nl' }),
+      setFr: () => this.setState({ lang: 'fr' }),
+      onPw: (e) => this.setState({ pw: e.target.value, err: false }),
+      onKey: (e) => { if (e.key === 'Enter') check(); },
+      onSubmit: check,
+      toggleFund: () => this.setState(st => ({ fundOpen: !st.fundOpen })),
+      onGround: (e) => this.setState({ ground: num(e.target.value) }),
+      onCleanup: (e) => this.setState({ cleanup: num(e.target.value) }),
+      onPpsm: (e) => this.setState({ ppsm: num(e.target.value) }),
+      onSqm: (e) => {
+        const name = e.currentTarget.dataset.name;
+        const v = e.target.value;
+        this.setState(st => ({ sqm: { ...st.sqm, [name]: v === '' ? undefined : (parseFloat(v) || 0) } }));
+      },
+      onSelect: (e) => this.setState({ selected: e.currentTarget.dataset.name }),
+      stop: (e) => e.stopPropagation(),
+    };
+  }
+}
+</script>
+</body>
+</html>
