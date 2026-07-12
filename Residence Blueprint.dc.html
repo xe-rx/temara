@@ -21,10 +21,21 @@
   @keyframes bp-fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   @keyframes bp-scale{from{opacity:0;transform:scale(.965)}to{opacity:1;transform:none}}
   @keyframes bp-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+  @media (max-width:680px){
+    .app{padding:18px 12px !important}
+    .login-card{padding:32px 22px !important}
+    .bp{padding:22px 14px 22px 26px !important}
+    .flabel{left:-19px !important}
+    .flabel span{font-size:8px !important;letter-spacing:2px !important}
+    .unit{padding-left:6px !important;padding-right:6px !important}
+    .unit .sqm{width:44px !important}
+    .totals{gap:14px 20px !important}
+    h1{font-size:23px !important}
+  }
 </style>
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#123027"/><g fill="none" stroke="#e0b168" stroke-width="2.4"><rect x="30" y="28" width="40" height="44" rx="2"/><line x1="30" y1="43" x2="70" y2="43"/><line x1="30" y1="57" x2="70" y2="57"/><line x1="50" y1="28" x2="50" y2="72"/></g></svg></template>
 </helmet>
-<div style="min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;padding:40px 24px;background:radial-gradient(125% 125% at 50% -10%, rgba(20,56,44,.72) 0%, rgba(10,36,28,.84) 55%, rgba(5,22,16,.92) 100%)">
+<div class="app" style="min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;padding:40px 24px;background:radial-gradient(125% 125% at 50% -10%, rgba(20,56,44,.72) 0%, rgba(10,36,28,.84) 55%, rgba(5,22,16,.92) 100%)">
 
   <sc-if value="{{ locked }}" hint-placeholder-val="{{ true }}">
     <div style="width:100%;max-width:400px;animation:bp-scale .5s ease both">
@@ -34,7 +45,7 @@
           <button onClick="{{ setFr }}" style="cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;padding:5px 14px;border:none;background:{{ frBg }};color:{{ frCol }};transition:background .15s">FR</button>
         </div>
       </div>
-      <div style="position:relative;background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:14px;padding:44px 38px 38px;box-shadow:0 30px 80px -30px rgba(0,0,0,.7)">
+      <div class="login-card" style="position:relative;background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:14px;padding:44px 38px 38px;box-shadow:0 30px 80px -30px rgba(0,0,0,.7)">
         <div style="position:absolute;inset:7px;border:1px solid rgba(233,215,183,.14);border-radius:9px;pointer-events:none"></div>
 
         <div style="display:flex;justify-content:center;margin-bottom:22px">
@@ -49,8 +60,8 @@
         <p style="margin:0 0 26px;text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.5)">{{ t.enterCode }}</p>
 
         <div style="display:flex;flex-direction:column;gap:12px;animation:{{ shakeAnim }}">
-          <input type="password" inputmode="numeric" placeholder="• • •" value="{{ pw }}" onInput="{{ onPw }}" onKeyDown="{{ onKey }}"
-            style="width:100%;text-align:center;font-family:'Space Mono',monospace;font-size:22px;letter-spacing:10px;color:#f3e6cb;background:#0a1e18;border:1.5px solid rgba(233,215,183,.3);border-radius:9px;padding:14px 12px;outline:none"
+          <input type="password" placeholder="passphrase" value="{{ pw }}" onInput="{{ onPw }}" onKeyDown="{{ onKey }}"
+            style="width:100%;text-align:center;font-family:'Space Mono',monospace;font-size:16px;letter-spacing:3px;color:#f3e6cb;background:#0a1e18;border:1.5px solid rgba(233,215,183,.3);border-radius:9px;padding:14px 12px;outline:none"
             style-focus="border-color:#e0b168" />
           <button onClick="{{ onSubmit }}"
             style="width:100%;cursor:pointer;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#08201a;background:#e0b168;border:none;border-radius:9px;padding:14px 12px;transition:background .18s"
@@ -81,7 +92,6 @@
           <div style="text-align:right;font-size:10.5px;letter-spacing:1.5px;color:rgba(233,215,183,.55);line-height:1.7">
             <div>{{ t.dwg }}</div>
             <div>{{ t.levels }}</div>
-            <div style="color:#d97a48">{{ t.scale }}</div>
           </div>
         </div>
       </div>
@@ -93,7 +103,7 @@
 
       <div style="display:flex;align-items:flex-start;gap:22px;flex-wrap:wrap">
 
-        <aside style="flex:1 1 320px;min-width:300px;max-width:360px;display:flex;flex-direction:column;gap:16px">
+        <aside style="flex:1 1 320px;min-width:0;max-width:360px;display:flex;flex-direction:column;gap:16px">
           <div style="background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:8px;overflow:hidden">
             <button onClick="{{ toggleFund }}" style="width:100%;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;background:rgba(224,177,104,.08);border:none;border-bottom:1px solid rgba(233,215,183,.18);padding:14px 16px;text-align:left">
               <span style="display:flex;align-items:center;gap:9px;font-family:'Marcellus',serif;font-size:16px;color:#e0b168;letter-spacing:.5px">◆ {{ t.fund }}</span>
@@ -128,47 +138,54 @@
                   <span style="font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb">{{ siFmt }}</span>
                 </div>
 
-                <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4);margin:18px 0 9px">{{ t.payouts }}</div>
-                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">
-                  <span style="font-size:10.5px;padding:3px 8px;border:1px solid rgba(233,215,183,.25);border-radius:20px;color:rgba(233,215,183,.85)">Abdellah</span>
-                  <span style="font-size:10.5px;padding:3px 8px;border:1px solid rgba(233,215,183,.25);border-radius:20px;color:rgba(233,215,183,.85)">Rachid</span>
-                  <span style="font-size:10.5px;padding:3px 8px;border:1px solid rgba(233,215,183,.25);border-radius:20px;color:rgba(233,215,183,.85)">Ismael</span>
-                  <span style="font-size:10.5px;padding:3px 8px;border:1px solid rgba(233,215,183,.25);border-radius:20px;color:rgba(233,215,183,.85)">Abdelkarim</span>
-                </div>
-                <div style="display:flex;align-items:center;justify-content:space-between">
-                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.fourBrother }}</span>
-                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb">{{ payoutFmt }}</span>
-                </div>
+                <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4);margin:18px 0 9px">{{ t.settlement }}</div>
 
-                <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4);margin:18px 0 9px">{{ t.appliedDisc }}</div>
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
-                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.nordinShare }}</span>
-                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#d97a48">−{{ brFmt }}</span>
-                </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
-                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.fathmaShare }}</span>
-                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#d97a48">−{{ siFmt }}</span>
-                </div>
-                <div style="display:flex;align-items:center;justify-content:space-between">
-                  <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.heddaShare }}</span>
-                  <span style="font-family:'Space Mono',monospace;font-size:13px;color:#d97a48">−{{ siFmt }}</span>
-                </div>
+                <div style="font-size:10px;letter-spacing:1px;color:#e0b168;margin-bottom:7px">{{ t.cashOut }}</div>
+                <sc-for list="{{ cashList }}" as="c" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                    <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ c.who }}</span>
+                    <span style="font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb">{{ c.amt }}</span>
+                  </div>
+                </sc-for>
+
+                <div style="font-size:10px;letter-spacing:1px;color:#e0b168;margin:14px 0 7px">{{ t.viaDiscount }}</div>
+                <sc-for list="{{ discList }}" as="d" hint-placeholder-count="6">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px">
+                    <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ d.who }} <span style="color:rgba(233,215,183,.4);font-size:10.5px">→ {{ d.code }}</span></span>
+                    <span style="font-family:'Space Mono',monospace;font-size:13px;color:#d97a48">−{{ d.amt }}</span>
+                  </div>
+                </sc-for>
+
+                <sc-if value="{{ hasForfeit }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:10px;letter-spacing:1px;color:#e0b168;margin:14px 0 7px">{{ t.forfeited }}</div>
+                  <sc-for list="{{ forfeitList }}" as="f" hint-placeholder-count="1">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px">
+                      <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ f.who }} <span style="color:rgba(233,215,183,.4);font-size:10.5px">→ {{ f.code }}</span></span>
+                      <span style="font-family:'Space Mono',monospace;font-size:13px;color:rgba(233,215,183,.5)">{{ f.amt }}</span>
+                    </div>
+                  </sc-for>
+                </sc-if>
+
               </div>
             </sc-if>
           </div>
 
           <div style="background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:8px;padding:16px">
             <div style="font-family:'Marcellus',serif;font-size:16px;color:#e0b168;letter-spacing:.5px;margin-bottom:12px">◆ {{ t.pricing }}</div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px">
               <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.pricePerM2 }}</span>
               <span style="display:flex;align-items:center;gap:5px"><span style="font-size:12px;color:rgba(233,215,183,.5)">€</span><input type="number" inputmode="numeric" value="{{ ppsm }}" onInput="{{ onPpsm }}" style="width:104px;text-align:right;font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:5px;padding:5px 7px;outline:none" style-focus="border-color:#e0b168" /></span>
             </div>
-            <div style="font-size:10.5px;line-height:1.6;color:rgba(233,215,183,.55);padding-top:11px;border-top:1px solid rgba(233,215,183,.15)">{{ t.priceNoteA }}<span style="color:#e0b168">m² × €/m²</span>{{ t.priceNoteB }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:11px;border-top:1px solid rgba(233,215,183,.15)">
+              <span style="font-size:12px;color:rgba(233,215,183,.8)">{{ t.construction }}</span>
+              <span style="display:flex;align-items:center;gap:5px"><span style="font-size:12px;color:rgba(233,215,183,.5)">€</span><input type="number" inputmode="numeric" value="{{ construction }}" onInput="{{ onConstruction }}" style="width:104px;text-align:right;font-family:'Space Mono',monospace;font-size:13px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:5px;padding:5px 7px;outline:none" style-focus="border-color:#e0b168" /></span>
+            </div>
+            <div style="font-size:10.5px;line-height:1.6;color:rgba(233,215,183,.55);margin-top:11px">{{ t.priceNoteA }}<span style="color:#e0b168">m² × €/m²</span>{{ t.priceNoteB }}</div>
           </div>
         </aside>
 
-        <div style="flex:2 1 620px;min-width:520px">
-          <div style="position:relative;background:#123027;border:1.5px solid rgba(233,215,183,.45);border-radius:6px;padding:34px 30px 26px;box-shadow:0 30px 90px -40px rgba(0,0,0,.75);overflow:hidden">
+        <div style="flex:2 1 620px;min-width:0">
+          <div class="bp" style="position:relative;background:#123027;border:1.5px solid rgba(233,215,183,.45);border-radius:6px;padding:34px 30px 26px;box-shadow:0 30px 90px -40px rgba(0,0,0,.75);overflow:hidden">
             <div style="position:absolute;top:11px;left:11px;width:15px;height:15px;pointer-events:none;opacity:.45;z-index:2"><div style="position:absolute;inset:0;background:#e0b168"></div><div style="position:absolute;inset:0;background:#e0b168;transform:rotate(45deg)"></div></div>
             <div style="position:absolute;top:11px;right:11px;width:15px;height:15px;pointer-events:none;opacity:.45;z-index:2"><div style="position:absolute;inset:0;background:#e0b168"></div><div style="position:absolute;inset:0;background:#e0b168;transform:rotate(45deg)"></div></div>
             <div style="position:absolute;bottom:11px;left:11px;width:15px;height:15px;pointer-events:none;opacity:.45;z-index:2"><div style="position:absolute;inset:0;background:#e0b168"></div><div style="position:absolute;inset:0;background:#e0b168;transform:rotate(45deg)"></div></div>
@@ -186,14 +203,14 @@
               <div style="height:16px;border:1px solid rgba(233,215,183,.4);border-bottom:none;border-radius:6px 6px 0 0;background:repeating-linear-gradient(45deg,transparent,transparent 7px,rgba(233,215,183,.12) 7px,rgba(233,215,183,.12) 9px)"></div>
 
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;position:relative">
-                <div style="position:absolute;left:-22px;top:0;bottom:0;display:flex;align-items:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:3px;color:rgba(233,215,183,.5)">{{ f3 }}</span></div>
+                <div class="flabel" style="position:absolute;left:-22px;top:0;bottom:0;display:flex;align-items:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:3px;color:rgba(233,215,183,.5)">{{ f3 }}</span></div>
                 <sc-for list="{{ floor3 }}" as="u" hint-placeholder-count="3">
-                  <div data-name="{{ u.name }}" onClick="{{ onSelect }}" style="cursor:pointer;position:relative;height:166px;border:1.4px solid rgba(233,215,183,.75);border-radius:4px;background:rgba(233,215,183,.03);padding:13px 10px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .18s,border-color .18s" style-hover="background:rgba(224,177,104,.1);border-color:#e0b168">
-                    <div style="font-family:'Marcellus',serif;font-size:17px;color:#f3e6cb;letter-spacing:.5px;line-height:1.15">{{ u.name }}</div>
+                  <div class="unit" data-name="{{ u.name }}" onClick="{{ onSelect }}" style="cursor:pointer;position:relative;height:166px;border:1.4px solid rgba(233,215,183,.75);border-radius:4px;background:rgba(233,215,183,.03);padding:13px 10px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .18s,border-color .18s" style-hover="background:rgba(224,177,104,.1);border-color:#e0b168">
+                    <div style="font-family:'Marcellus',serif;font-size:17px;color:#f3e6cb;letter-spacing:.5px;line-height:1.15">{{ u.label }}</div>
                     <div style="font-size:8.5px;letter-spacing:2px;color:rgba(233,215,183,.45);margin-top:2px">{{ u.code }}</div>
                     <div style="flex:1"></div>
                     <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
-                      <input type="number" inputmode="numeric" placeholder="0" value="{{ u.sqmVal }}" data-name="{{ u.name }}" onInput="{{ onSqm }}" onClick="{{ stop }}" style="width:54px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:4px;padding:3px 5px;outline:none" style-focus="border-color:#e0b168" />
+                      <input class="sqm" type="number" inputmode="numeric" placeholder="0" value="{{ u.sqmVal }}" data-name="{{ u.name }}" onInput="{{ onSqm }}" onClick="{{ stop }}" style="width:54px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:4px;padding:3px 5px;outline:none" style-focus="border-color:#e0b168" />
                       <span style="font-size:10px;color:rgba(233,215,183,.55)">m²</span>
                     </div>
                     <div style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#e0b168;letter-spacing:.5px">{{ u.price }}</div>
@@ -207,14 +224,14 @@
               <div style="height:8px;margin-top:4px;border-top:1px dashed rgba(233,215,183,.28)"></div>
 
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:6px;position:relative">
-                <div style="position:absolute;left:-22px;top:0;bottom:0;display:flex;align-items:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:3px;color:rgba(233,215,183,.5)">{{ f2 }}</span></div>
+                <div class="flabel" style="position:absolute;left:-22px;top:0;bottom:0;display:flex;align-items:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:3px;color:rgba(233,215,183,.5)">{{ f2 }}</span></div>
                 <sc-for list="{{ floor2 }}" as="u" hint-placeholder-count="3">
-                  <div data-name="{{ u.name }}" onClick="{{ onSelect }}" style="cursor:pointer;position:relative;height:166px;border:1.4px solid rgba(233,215,183,.75);border-radius:4px;background:rgba(233,215,183,.03);padding:13px 10px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .18s,border-color .18s" style-hover="background:rgba(224,177,104,.1);border-color:#e0b168">
-                    <div style="font-family:'Marcellus',serif;font-size:17px;color:#f3e6cb;letter-spacing:.5px;line-height:1.15">{{ u.name }}</div>
+                  <div class="unit" data-name="{{ u.name }}" onClick="{{ onSelect }}" style="cursor:pointer;position:relative;height:166px;border:1.4px solid rgba(233,215,183,.75);border-radius:4px;background:rgba(233,215,183,.03);padding:13px 10px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .18s,border-color .18s" style-hover="background:rgba(224,177,104,.1);border-color:#e0b168">
+                    <div style="font-family:'Marcellus',serif;font-size:17px;color:#f3e6cb;letter-spacing:.5px;line-height:1.15">{{ u.label }}</div>
                     <div style="font-size:8.5px;letter-spacing:2px;color:rgba(233,215,183,.45);margin-top:2px">{{ u.code }}</div>
                     <div style="flex:1"></div>
                     <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
-                      <input type="number" inputmode="numeric" placeholder="0" value="{{ u.sqmVal }}" data-name="{{ u.name }}" onInput="{{ onSqm }}" onClick="{{ stop }}" style="width:54px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:4px;padding:3px 5px;outline:none" style-focus="border-color:#e0b168" />
+                      <input class="sqm" type="number" inputmode="numeric" placeholder="0" value="{{ u.sqmVal }}" data-name="{{ u.name }}" onInput="{{ onSqm }}" onClick="{{ stop }}" style="width:54px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:4px;padding:3px 5px;outline:none" style-focus="border-color:#e0b168" />
                       <span style="font-size:10px;color:rgba(233,215,183,.55)">m²</span>
                     </div>
                     <div style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#e0b168;letter-spacing:.5px">{{ u.price }}</div>
@@ -228,14 +245,14 @@
               <div style="height:8px;margin-top:4px;border-top:1px dashed rgba(233,215,183,.28)"></div>
 
               <div style="display:grid;grid-template-columns:1fr .62fr 1fr;gap:10px;margin-top:6px;position:relative">
-                <div style="position:absolute;left:-22px;top:0;bottom:0;display:flex;align-items:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:3px;color:rgba(233,215,183,.5)">{{ f1 }}</span></div>
+                <div class="flabel" style="position:absolute;left:-22px;top:0;bottom:0;display:flex;align-items:center"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;letter-spacing:3px;color:rgba(233,215,183,.5)">{{ f1 }}</span></div>
                 <sc-for list="{{ floor1 }}" as="u" hint-placeholder-count="3">
-                  <div data-name="{{ u.name }}" onClick="{{ onSelect }}" style="cursor:pointer;position:relative;height:172px;border:1.4px solid rgba(233,215,183,.75);border-radius:4px;background:rgba(233,215,183,.03);padding:13px 8px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .18s,border-color .18s" style-hover="background:rgba(224,177,104,.1);border-color:#e0b168">
-                    <div style="font-family:'Marcellus',serif;font-size:16px;color:#f3e6cb;letter-spacing:.5px;line-height:1.15">{{ u.name }}</div>
+                  <div class="unit" data-name="{{ u.name }}" onClick="{{ onSelect }}" style="cursor:pointer;position:relative;height:172px;border:1.4px solid rgba(233,215,183,.75);border-radius:4px;background:rgba(233,215,183,.03);padding:13px 8px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:background .18s,border-color .18s" style-hover="background:rgba(224,177,104,.1);border-color:#e0b168">
+                    <div style="font-family:'Marcellus',serif;font-size:16px;color:#f3e6cb;letter-spacing:.5px;line-height:1.15">{{ u.label }}</div>
                     <div style="font-size:8.5px;letter-spacing:2px;color:rgba(233,215,183,.45);margin-top:2px">{{ u.code }}</div>
                     <div style="flex:1"></div>
                     <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
-                      <input type="number" inputmode="numeric" placeholder="0" value="{{ u.sqmVal }}" data-name="{{ u.name }}" onInput="{{ onSqm }}" onClick="{{ stop }}" style="width:52px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:4px;padding:3px 5px;outline:none" style-focus="border-color:#e0b168" />
+                      <input class="sqm" type="number" inputmode="numeric" placeholder="0" value="{{ u.sqmVal }}" data-name="{{ u.name }}" onInput="{{ onSqm }}" onClick="{{ stop }}" style="width:52px;text-align:right;font-family:'Space Mono',monospace;font-size:12px;color:#f3e6cb;background:#0a1e18;border:1px solid rgba(233,215,183,.3);border-radius:4px;padding:3px 5px;outline:none" style-focus="border-color:#e0b168" />
                       <span style="font-size:10px;color:rgba(233,215,183,.55)">m²</span>
                     </div>
                     <div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#e0b168;letter-spacing:.5px">{{ u.price }}</div>
@@ -260,7 +277,7 @@
             </div>
           </div>
 
-          <div style="margin-top:16px;background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:8px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:space-between">
+          <div class="totals" style="margin-top:16px;background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:8px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:space-between">
             <div style="display:flex;flex-direction:column;gap:2px">
               <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.totalArea }}</span>
               <span style="font-family:'Space Mono',monospace;font-size:15px;color:#f3e6cb">{{ areaFmt }}</span>
@@ -270,12 +287,40 @@
               <span style="font-family:'Space Mono',monospace;font-size:15px;color:#f3e6cb">{{ grossFmt }}</span>
             </div>
             <div style="display:flex;flex-direction:column;gap:2px">
-              <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.discApplied }}</span>
-              <span style="font-family:'Space Mono',monospace;font-size:15px;color:#d97a48">−{{ discTotalFmt }}</span>
+              <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.reductions }}</span>
+              <span style="font-family:'Space Mono',monospace;font-size:15px;color:#d97a48">−{{ reductionsFmt }}</span>
             </div>
             <div style="display:flex;flex-direction:column;gap:2px">
-              <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.netColl }}</span>
-              <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:#e0b168">{{ netTotalFmt }}</span>
+              <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.collectedShort }}</span>
+              <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:#e0b168">{{ collectedFmt }}</span>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;background:#123027;border:1.5px solid rgba(233,215,183,.28);border-radius:8px;padding:16px 18px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px">
+              <span style="font-family:'Marcellus',serif;font-size:16px;color:#e0b168;letter-spacing:.5px">◆ {{ t.saidTitle }}</span>
+            </div>
+            <div style="font-size:10.5px;line-height:1.55;color:rgba(233,215,183,.55);margin-bottom:14px">{{ t.saidNote }}</div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 8px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.collected }}</span>
+                <span style="font-family:'Space Mono',monospace;font-size:15px;color:#f3e6cb">{{ collectedFmt }}</span>
+              </div>
+              <span style="font-size:18px;color:rgba(233,215,183,.4)">−</span>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.lessCash }}</span>
+                <span style="font-family:'Space Mono',monospace;font-size:15px;color:#d97a48">{{ cashOutFmt }}</span>
+              </div>
+              <span style="font-size:18px;color:rgba(233,215,183,.4)">−</span>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.lessBuild }}</span>
+                <span style="font-family:'Space Mono',monospace;font-size:15px;color:#d97a48">{{ buildFmt }}</span>
+              </div>
+              <span style="font-size:18px;color:rgba(233,215,183,.4);margin-left:auto">=</span>
+              <div style="display:flex;flex-direction:column;gap:2px;align-items:flex-end">
+                <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:{{ saidNetCol }}">{{ t.saidNet }} · {{ saidNetTag }}</span>
+                <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:18px;color:{{ saidNetCol }}">{{ saidNetFmt }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -288,47 +333,63 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1300,&quot;height&quot;:900},&quot;grid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Blueprint&quot;},&quot;dims&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Blueprint&quot;}}">
 const T = {
   nl: {
-    loginTitle: 'Huis Temara', enterCode: 'Voer toegangscode in',
-    unlock: 'Ontgrendelen →', wrongCode: 'Onjuiste code — probeer opnieuw.', hint: 'Hint — de code is ',
-    title: 'Huis Temara — Plattegronden', subtitle: 'Temara · Rabat, Marokko',
-    dwg: 'DWG-01 · WOONGEBOUW', levels: '3 VERDIEPINGEN · 9 WONINGEN', scale: 'SCHAAL 1:100',
-    fund: 'Erfenisfonds', plot: 'De grond', plotValue: 'Waarde van de grond', cleanup: 'Minus sloop & opruiming',
-    net: 'Netto te verdelen', shares: 'Aandelen — 7 broers · 2 zussen',
-    sharesNote: 'Zussen ontvangen een half aandeel van een broer.',
-    eachBrother: 'Elke broer (×7)', eachSister: 'Elke zus (×2)', payouts: 'Contante uitbetalingen',
-    fourBrother: '4 × broeraandeel', appliedDisc: 'Erfdeel verrekend met de woning',
-    nordinShare: 'Nordin — 1 broeraandeel', fathmaShare: 'Fathma — zusaandeel', heddaShare: 'Hedda — zusaandeel',
-    pricing: 'Woningprijzen', pricePerM2: 'Prijs per m²',
-    priceNoteA: 'Prijs per woning = ', priceNoteB: ' − erfdeel. Vul de m² per woning in op de plattegrond →',
-    terrace: '◆ DAKTERRAS', floor: 'VERDIEPING', frontage: 'STRAATGEVEL',
-    totalArea: 'Totale oppervlakte', gross: 'Brutowaarde', discApplied: 'Erfdeel verrekend', netColl: 'Netto te innen',
-    inheritance: 'erfdeel', estimate: 'Alle bedragen en oppervlaktes zijn voorlopige schattingen.', estimateTag: 'SCHATTING', locale: 'nl-NL',
+    loginTitle: 'Huis Temara', enterCode: 'Voer toegangscode in', unlock: 'Ontgrendelen →', wrongCode: 'Onjuiste code — probeer opnieuw.',
+    title: 'Huis Temara — Plattegronden', subtitle: 'Temara · Rabat, Marokko', dwg: 'DWG-01 · WOONGEBOUW', levels: '3 VERDIEPINGEN · 9 WONINGEN',
+    estimateTag: 'SCHATTING', estimate: 'Alle bedragen en oppervlaktes zijn voorlopige schattingen.',
+    fund: 'Erfenis & verrekening', plot: 'De grond', plotValue: 'Waarde van de grond', cleanup: 'Minus sloop & opruiming', net: 'Netto nalatenschap',
+    shares: 'Erfdelen — 7 broers · 2 zussen', sharesNote: 'Zussen ontvangen een half broeraandeel.', eachBrother: 'Elk broeraandeel (×7)', eachSister: 'Elk zusaandeel (×2)',
+    settlement: 'Verrekening per erfgenaam', cashOut: 'Contant uitbetaald', viaDiscount: 'Als korting op woning', forfeited: 'Afgezien — voor de bouw',
+    balanceOk: 'Sluit aan op nalatenschap', balanceOff: 'Wijkt af van nalatenschap',
+    pricing: 'Prijzen & bouw', pricePerM2: 'Prijs per m²', construction: 'Bouwkosten',
+    priceNoteA: 'Woningprijs = ', priceNoteB: ' − erfdeel. Vul de m² per woning in op de plattegrond →',
+    terrace: '◆ DAKTERRAS', floor: 'VERDIEPING', groundFloor: 'BEGANE GROND', frontage: 'STRAATGEVEL',
+    free: 'Gratis', forBuilding: 'voor de bouw', sharedNote: 'Said & Rachid — erfdeel verrekend', fromMohammed: 'erfdeel Mohammed', fullPrice: 'volle prijs', inheritance: 'erfdeel',
+    saidTitle: 'Overzicht', saidNote: 'Woningopbrengst minus de contant uit te betalen erfdelen en de bouwkosten.',
+    collected: 'Te betalen woningen', lessCash: 'Contant uit te betalen', lessBuild: 'Bouwkosten', saidNet: 'Saldo', profit: 'overschot', shortfall: 'tekort',
+    totalArea: 'Totale oppervlakte', gross: 'Brutowaarde', reductions: 'Kortingen toegepast', collectedShort: 'Te betalen',
+    locale: 'nl-NL',
   },
   fr: {
-    loginTitle: 'Maison Temara', enterCode: "Entrez le code d'accès",
-    unlock: 'Déverrouiller →', wrongCode: 'Code incorrect — réessayez.', hint: 'Indice — le code est ',
-    title: 'Maison Temara — Plans', subtitle: 'Temara · Rabat, Maroc',
-    dwg: 'DWG-01 · RÉSIDENTIEL', levels: '3 NIVEAUX · 9 LOGEMENTS', scale: 'ÉCHELLE 1:100',
-    fund: 'Fonds successoral', plot: 'Le terrain', plotValue: 'Valeur du terrain', cleanup: 'Moins démolition & nettoyage',
-    net: 'Net à répartir', shares: 'Parts — 7 frères · 2 sœurs',
-    sharesNote: "Les sœurs reçoivent une demi-part de celle d'un frère.",
-    eachBrother: 'Chaque frère (×7)', eachSister: 'Chaque sœur (×2)', payouts: 'Versements en espèces',
-    fourBrother: '4 × part de frère', appliedDisc: "Part d'héritage déduite du logement",
-    nordinShare: 'Nordin — 1 part de frère', fathmaShare: 'Fathma — part de sœur', heddaShare: 'Hedda — part de sœur',
-    pricing: 'Prix des logements', pricePerM2: 'Prix par m²',
-    priceNoteA: 'Prix par logement = ', priceNoteB: " − part d'héritage. Saisissez les m² de chaque logement sur le plan →",
-    terrace: '◆ TERRASSE SUR LE TOIT', floor: 'NIVEAU', frontage: 'FAÇADE SUR RUE',
-    totalArea: 'Surface totale', gross: 'Valeur brute', discApplied: 'Héritage déduit', netColl: 'Net à percevoir',
-    inheritance: 'héritage', estimate: 'Tous les montants et surfaces sont des estimations provisoires.', estimateTag: 'ESTIMATION', locale: 'fr-FR',
+    loginTitle: 'Maison Temara', enterCode: "Entrez le code d'accès", unlock: 'Déverrouiller →', wrongCode: 'Code incorrect — réessayez.',
+    title: 'Maison Temara — Plans', subtitle: 'Temara · Rabat, Maroc', dwg: 'DWG-01 · RÉSIDENTIEL', levels: '3 NIVEAUX · 9 LOGEMENTS',
+    estimateTag: 'ESTIMATION', estimate: 'Tous les montants et surfaces sont des estimations provisoires.',
+    fund: 'Héritage & règlement', plot: 'Le terrain', plotValue: 'Valeur du terrain', cleanup: 'Moins démolition & nettoyage', net: 'Succession nette',
+    shares: 'Parts — 7 frères · 2 sœurs', sharesNote: 'Les sœurs reçoivent une demi-part de frère.', eachBrother: 'Chaque part de frère (×7)', eachSister: 'Chaque part de sœur (×2)',
+    settlement: 'Règlement par héritier', cashOut: 'Payé en espèces', viaDiscount: 'En réduction de logement', forfeited: 'Abandonné — pour la construction',
+    balanceOk: 'Équilibré avec la succession', balanceOff: 'Écart avec la succession',
+    pricing: 'Prix & construction', pricePerM2: 'Prix par m²', construction: 'Coûts de construction (Said)',
+    priceNoteA: 'Prix du logement = ', priceNoteB: " − héritage. Saisissez les m² de chaque logement sur le plan →",
+    terrace: '◆ TERRASSE SUR LE TOIT', floor: 'NIVEAU', groundFloor: 'REZ-DE-CHAUSSÉE', frontage: 'FAÇADE SUR RUE',
+    free: 'Gratuit', forBuilding: 'pour la construction', sharedNote: 'Said & Rachid — héritage déduit', fromMohammed: 'héritage de Mohammed', fullPrice: 'plein tarif', inheritance: 'héritage',
+    saidTitle: 'Aperçu', saidNote: "Produit des logements moins les héritages à payer en espèces et les coûts de construction.",
+    collected: 'Logements à payer', lessCash: 'À payer en espèces', lessBuild: 'Construction', saidNet: 'Solde', profit: 'excédent', shortfall: 'déficit',
+    totalArea: 'Surface totale', gross: 'Valeur brute', reductions: 'Réductions appliquées', collectedShort: 'À payer',
+    locale: 'fr-FR',
   },
 };
 
+// === Encrypted vault =========================================================
+// The family data (names, apartments, amounts) is NOT stored here in the clear.
+// It is AES-256-GCM encrypted and the passphrase you type is the only key.
+// Nothing readable exists in this file without the correct passphrase.
+// Regenerate this line with Encrypt.html whenever you change the data or passphrase.
+const VAULT = { iter: 250000, salt: "1InfAto2jdk3Hm+Gxaroww==", iv: "sjF8W32PBpw8MliQ", ct: "o8WIERzNdOUq5+7sMF2QJqqKNx52DMNaI1jpS50EpirjPnZHbR6fn3oMW3wjbZHejJ4n6x2pJVe+GEChFMzwIj5gRIs1HhZsYrVDuNwUcENvpUEE8v8SK1Eeb5w250dAdx1F3e8wcucr/xU5astSNOHtW6luI+Ng5L+0O5tN7KxXAqco1DoYijcoZvnyoQm4kY2Csfc3ovC6zalRi0bjDa8T8VNJgFxl/5OXxwsQyViczBqFqVUO2tOi3aSR1cy8kEPPlmutkXi4YHjEcWV2bbK6IOX2yqUmGefzOJaKS2nHzXRMU51srnAlauC4FqlbYbf0wyKHUgXslWqdMqe0k2acl6nJ4ulHQt+Y0FAWUdKg1NY/RE6/HJF5FWqX+v9/WbD7p00Xca8V1YXtFpFc2TtRbh359bUYTYuIKBWME/OL9sv9sbKBAy0BxU5r94fYGI5wbJWB3Kjzu/lkkoOWZxmdVNCK/Xz7WMF3HqXxdXy+KUkmfxsQjJvZyjqc3C1OxmE/jJXYNMwa8bcSZWrGRzZpYHfVUtHa5WOemDGBSLaJUvzfmdeTPcqLmGoztznyHZKt+8uERc720TJYhCZxJ+x/FOWJtMZJdP/CI2kQV8INGNrUf0QBJMTb9A7X9yA4Mt8lvYhgx8RPEIWBhvTkgJF7rNrrTf+dILgjgrq15T8ly+iC2a3RGL1oqrLFTUGz/JdboeNBGiitC0f6vGRIm7blu1MNR9texg6hF9nhSMubuRnQPTXerqPDxhfqh+Ee6tA5earT2kT6hTwllfgL/mMcYbXgXPg4LFNDjEzQlEHvkxGggPM9bk4uQ8vqWAcJN9Uk9Y8eikOEM7kU8gBtxvH1wYHiDmGsTwaM3mdM9NMsHkAiyodny+9w6XAUBayXeEBwyHvxR+eeyUGqIqFKUDGjbdW9eVRcUG+vcMM1GylIEKS6mdVAf7b7fvA3NZY/MBNXCiMMPQ4GYnf9ZRlCNBMcSrV0YIt1OPHeeMHG+puk6Ey6bt93HZa6pSzC5ez4VK/C6HP4fUq7g1gA6RCLJ/1eG0vGOVgfzVZ/4GTyG4V/ui+hRIYF5WX+Pqylay1qQsvQvHfF1pWv8ayYy0MSPLl5f0JfeL4k7TNshRLfbCNq72vs2gagBmG4c1HSVgOHGJpmPyjbF99Kt0srJDq8dnjK7bwG28j/v4kCeaODbm6QIgFBo3yvhQP+yxoUHv3+hgDf+eQ55uISe+SoBqPPigZkdovgSVqQjsckWmgmeQdBE5OmUpEYK+BFHFNDERZwPe3aigwmXTykNBLFeXvzzQBvQj8uWXVy7J90+nHr55+MMuLCP39X4UcC0X+g1RHJx/3JcHfez3TZRSKPniGPiCuGml71QNXt64LBbmxGlVTYZ5jYLYcjxCwrZ5DEASJYaf7AFfvPI2EYODSrh1BtczuXZHne5Ky9wD+jLYGW0NNZpR1goDhIOGJq/EJpyPHDksQuZ96rxg06U2iNQDBh/X3lO6Ef9M7RkhzuKetfC67IHk3Xvwqcw8+qqcS/Dgtpen5mhiNRiH2iLzgUuQQdD0+Lscd1B+YvPN4LwhiLM6GOpmz4cMC6OvCTf1bWUidp42RDP/Lae5RmgmxRWG/V83pOFOYLVmb2g8YHOWAjSKNIrg/FqU/lH0hRQwZQAZByil7SzK+MIqZmteOGwnxfcO0AGmil8pBCh+cTJOvEfwoTm4tP3IlrG26FZYzcekejpl/XEhApjMeG/k0XwiBFAHhlinUzGTBOYmk0RHEyyfQXEfrGAdk3eT59JWc=" };
+
+async function openVault(passphrase) {
+  const dec = (b64) => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+  const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: dec(VAULT.salt), iterations: VAULT.iter, hash: 'SHA-256' },
+    km, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: dec(VAULT.iv) }, key, dec(VAULT.ct));
+  return JSON.parse(new TextDecoder().decode(pt));   // throws on a wrong passphrase
+}
+
 class Component extends DCLogic {
   state = {
-    pw: '', locked: true, err: false, shake: 0, selected: '',
-    fundOpen: false, lang: 'nl',
-    ground: 300000, cleanup: 20000, ppsm: 0,
-    sqm: { Nordin: 85, Said: 65, Karima: 85, Fathma: 85, Chadia: 65, Hedda: 85, Radi: 100, Studio: 30, 'Mourad Ouissam': 70 },
+    pw: '', locked: true, err: false, busy: false, shake: 0, selected: '',
+    fundOpen: false, lang: 'nl', data: null,
+    ground: 0, cleanup: 0, ppsm: 0, construction: 0, sqm: {},
   };
 
   renderVals() {
@@ -336,74 +397,146 @@ class Component extends DCLogic {
     const t = T[s.lang] || T.nl;
     const fmt = (n) => (n < 0 ? '−€\u00a0' : '€\u00a0') + Math.abs(Math.round(n || 0)).toLocaleString(t.locale);
     const num = (v) => (v === '' || v == null ? 0 : (parseFloat(v) || 0));
-
-    const BROTHERS = 7, SISTERS = 2;
-    const net = Math.max(0, s.ground - s.cleanup);
-    const denom = BROTHERS + SISTERS / 2;
-    const brotherShare = denom > 0 ? net / denom : 0;
-    const sisterShare = brotherShare / 2;
-    const payout = 4 * brotherShare;
-
-    const discMap = { Nordin: brotherShare, Fathma: sisterShare, Hedda: sisterShare };
-    const ppsm = s.ppsm;
-    const unit = (name, code) => {
-      const area = num(s.sqm[name]);
-      const disc = discMap[name] || 0;
-      const gross = area * ppsm;
-      const priced = area > 0 && ppsm > 0;
-      return {
-        name, code,
-        sqmVal: (s.sqm[name] === undefined || s.sqm[name] === null) ? '' : s.sqm[name],
-        price: priced ? '≈ ' + fmt(gross - disc) : '—',
-        hasDisc: disc > 0,
-        discLabel: disc > 0 ? '− ' + fmt(disc) + ' ' + t.inheritance : '',
-      };
-    };
-
-    const totalArea = Object.keys(s.sqm).reduce((a, k) => a + num(s.sqm[k]), 0);
-    const grossTotal = totalArea * ppsm;
-    const discTotal = brotherShare + 2 * sisterShare;
-    const netTotal = grossTotal - discTotal;
-
-    const active = '#e0b168', activeCol = '#08201a', inCol = 'rgba(233,215,183,.7)';
     const isNl = s.lang === 'nl';
+    const active = '#e0b168', activeCol = '#08201a', inCol = 'rgba(233,215,183,.7)';
 
-    const check = () => {
-      if (this.state.pw.trim() === '123') this.setState({ locked: false, err: false });
-      else this.setState(st => ({ err: true, shake: st.shake + 1 }));
+    // Unlock = decrypt the vault with the typed passphrase. Wrong passphrase throws.
+    const check = async () => {
+      if (this.state.busy) return;
+      this.setState({ busy: true });
+      try {
+        const data = await openVault(this.state.pw);
+        const d = data.defaults || {};
+        this.setState({
+          locked: false, err: false, busy: false, data,
+          ground: d.ground ?? 0, cleanup: d.cleanup ?? 0,
+          ppsm: d.ppsm ?? 0, construction: d.construction ?? 0,
+          sqm: { ...(d.sqm || {}) },
+        });
+      } catch (e) {
+        this.setState(st => ({ err: true, busy: false, shake: st.shake + 1 }));
+      }
     };
 
-    return {
-      t,
-      pw: s.pw, locked: s.locked, unlocked: !s.locked, err: s.err,
+    // Login-only view until the vault is open — no secret data exists in state yet.
+    const base = {
+      t, pw: s.pw, locked: s.locked, unlocked: !s.locked, err: s.err,
       shakeAnim: s.shake ? `bp-shake .4s ease ${s.shake}` : 'none',
-      grid: this.props.grid ?? true, dims: this.props.dims ?? true,
-      fundOpen: s.fundOpen, fundCaret: s.fundOpen ? '▾' : '▸',
-
       nlBg: isNl ? active : 'transparent', nlCol: isNl ? activeCol : inCol,
       frBg: isNl ? 'transparent' : active, frCol: isNl ? inCol : activeCol,
-
-      ground: s.ground, cleanup: s.cleanup, ppsm: s.ppsm,
-      netFmt: fmt(net), brFmt: fmt(brotherShare), siFmt: fmt(sisterShare), payoutFmt: fmt(payout),
-
-      f3: t.floor + ' 3', f2: t.floor + ' 2', f1: t.floor + ' 1',
-
-      floor3: [unit('Nordin', 'APP 3A'), unit('Said', 'APP 3B'), unit('Karima', 'APP 3C')],
-      floor2: [unit('Fathma', 'APP 2A'), unit('Chadia', 'APP 2B'), unit('Hedda', 'APP 2C')],
-      floor1: [unit('Radi', 'APP 1A'), unit('Studio', 'APP 1B'), unit('Mourad Ouissam', 'APP 1C')],
-
-      areaFmt: totalArea.toLocaleString(t.locale) + ' m²',
-      grossFmt: '≈ ' + fmt(grossTotal), discTotalFmt: fmt(discTotal), netTotalFmt: '≈ ' + fmt(netTotal),
-
       setNl: () => this.setState({ lang: 'nl' }),
       setFr: () => this.setState({ lang: 'fr' }),
       onPw: (e) => this.setState({ pw: e.target.value, err: false }),
       onKey: (e) => { if (e.key === 'Enter') check(); },
       onSubmit: check,
+    };
+    if (!s.data) return base;
+
+    const HEIRS = s.data.heirs || [];
+    const APTS = s.data.apts || [];
+
+    // ---- Estate → shares (of the ground only) ----
+    const BROTHERS = 7, SISTERS = 2;
+    const net = Math.max(0, num(s.ground) - num(s.cleanup));
+    const denom = BROTHERS + SISTERS / 2;                 // 8
+    const brotherShare = denom > 0 ? net / denom : 0;
+    const sisterShare = brotherShare / 2;
+    const shareOf = (h) => (h.kind === 'S' ? sisterShare : brotherShare);
+
+    // ---- Settlement of each heir's inheritance ----
+    const aptByName = Object.fromEntries(APTS.map(a => [a.name, a]));
+    const codeShort = (aptName) => (aptByName[aptName] ? aptByName[aptName].code.replace('APP ', '') : '');
+    const cashList = [], discList = [], forfeitList = [];
+    const discByApt = {};
+    let cashTotal = 0, discInheritTotal = 0, forfeitTotal = 0;
+    HEIRS.forEach(h => {
+      const amt = shareOf(h);
+      if (h.settle === 'cash') { cashList.push({ who: h.name, amt: fmt(amt) }); cashTotal += amt; }
+      else if (h.settle === 'apt') {
+        discList.push({ who: h.name, code: codeShort(h.apt), amt: fmt(amt) });
+        discByApt[h.apt] = (discByApt[h.apt] || 0) + amt;
+        discInheritTotal += amt;
+      } else if (h.settle === 'forfeit') { forfeitTotal += amt; }  // counted in balance, not listed
+    });
+
+    // ---- Safety: does every share reconcile to the estate? ----
+    const accounted = cashTotal + discInheritTotal + forfeitTotal;
+    const diff = net - accounted;
+    const balanced = Math.abs(diff) < 1;
+
+    // ---- Apartment prices + what Said actually collects ----
+    const ppsm = num(s.ppsm);
+    let grossTotal = 0, totalArea = 0, collected = 0;
+    const unit = (name) => {
+      const a = aptByName[name];
+      const area = num(s.sqm[name]);
+      const gross = area * ppsm;
+      const disc = discByApt[name] || 0;
+      const priced = area > 0 && ppsm > 0;
+      const netPrice = a.free ? 0 : Math.max(0, gross - disc);
+      grossTotal += gross; totalArea += area; collected += netPrice;
+
+      let price, discLabel, hasDisc;
+      if (a.forfeit) {                              // Radi
+        price = fmt(0); discLabel = t.forBuilding; hasDisc = true;
+      } else if (a.free) {                          // Said & Rachid
+        price = fmt(0); discLabel = t.sharedNote; hasDisc = true;
+      } else if (disc > 0) {
+        const from = a.discFrom === 'mohammed' ? t.fromMohammed : t.inheritance;
+        price = priced ? '≈ ' + fmt(netPrice) : '—';
+        discLabel = '− ' + fmt(disc) + ' ' + from; hasDisc = true;
+      } else {
+        price = priced ? '≈ ' + fmt(gross) : '—';
+        discLabel = t.fullPrice; hasDisc = priced;
+      }
+      return {
+        name, label: a.label || name, code: a.code,
+        sqmVal: (s.sqm[name] === undefined || s.sqm[name] === null) ? '' : s.sqm[name],
+        price, hasDisc, discLabel,
+      };
+    };
+
+    const floor3 = [unit('Nordin'), unit('Rachid'), unit('Karima')];
+    const floor2 = [unit('Fathma'), unit('Chadia'), unit('Hedda')];
+    const floor1 = [unit('Radi'), unit('Abdellah'), unit('Mourad Ouissam')];
+    const reductions = grossTotal - collected;
+
+    // ---- Said's bottom line ----
+    const construction = num(s.construction);
+    const saidNet = collected - cashTotal - construction;
+    const saidProfit = saidNet >= 0;
+
+    return {
+      ...base,
+      grid: this.props.grid ?? true, dims: this.props.dims ?? true,
+      fundOpen: s.fundOpen, fundCaret: s.fundOpen ? '▾' : '▸',
+
+      ground: s.ground, cleanup: s.cleanup, ppsm: s.ppsm, construction: s.construction,
+      netFmt: fmt(net), brFmt: fmt(brotherShare), siFmt: fmt(sisterShare),
+
+      cashList, discList, forfeitList, hasForfeit: forfeitList.length > 0,
+      balanceIcon: balanced ? '✓' : '⚠',
+      balanceMsg: balanced ? t.balanceOk : t.balanceOff,
+      balanceSumFmt: balanced ? fmt(accounted) : fmt(diff),
+      balanceCol: balanced ? '#8fbf93' : '#e89a72',
+      balanceBg: balanced ? 'rgba(143,191,147,.08)' : 'rgba(232,154,114,.1)',
+      balanceBorder: balanced ? 'rgba(143,191,147,.35)' : 'rgba(232,154,114,.45)',
+
+      f3: t.floor + ' 2', f2: t.floor + ' 1', f1: t.groundFloor,
+      floor3, floor2, floor1,
+
+      areaFmt: totalArea.toLocaleString(t.locale) + ' m²',
+      grossFmt: '≈ ' + fmt(grossTotal), reductionsFmt: fmt(reductions), collectedFmt: '≈ ' + fmt(collected),
+
+      cashOutFmt: fmt(cashTotal), buildFmt: fmt(construction),
+      saidNetFmt: '≈ ' + fmt(saidNet), saidNetTag: saidProfit ? t.profit : t.shortfall,
+      saidNetCol: saidProfit ? '#8fbf93' : '#e89a72',
+
       toggleFund: () => this.setState(st => ({ fundOpen: !st.fundOpen })),
-      onGround: (e) => this.setState({ ground: num(e.target.value) }),
-      onCleanup: (e) => this.setState({ cleanup: num(e.target.value) }),
-      onPpsm: (e) => this.setState({ ppsm: num(e.target.value) }),
+      onGround: (e) => this.setState({ ground: e.target.value }),
+      onCleanup: (e) => this.setState({ cleanup: e.target.value }),
+      onPpsm: (e) => this.setState({ ppsm: e.target.value }),
+      onConstruction: (e) => this.setState({ construction: e.target.value }),
       onSqm: (e) => {
         const name = e.currentTarget.dataset.name;
         const v = e.target.value;
