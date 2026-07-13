@@ -303,18 +303,18 @@
             <div style="font-size:10.5px;line-height:1.55;color:rgba(233,215,183,.55);margin-bottom:14px">{{ t.saidNote }}</div>
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 8px">
               <div style="display:flex;flex-direction:column;gap:2px">
-                <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.collected }}</span>
-                <span style="font-family:'Space Mono',monospace;font-size:15px;color:#f3e6cb">{{ collectedFmt }}</span>
+                <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.lessBuild }}</span>
+                <span style="font-family:'Space Mono',monospace;font-size:15px;color:#f3e6cb">{{ buildFmt }}</span>
               </div>
-              <span style="font-size:18px;color:rgba(233,215,183,.4)">−</span>
+              <span style="font-size:18px;color:rgba(233,215,183,.4)">+</span>
               <div style="display:flex;flex-direction:column;gap:2px">
                 <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.lessCash }}</span>
-                <span style="font-family:'Space Mono',monospace;font-size:15px;color:#d97a48">{{ cashOutFmt }}</span>
+                <span style="font-family:'Space Mono',monospace;font-size:15px;color:#f3e6cb">{{ cashOutFmt }}</span>
               </div>
               <span style="font-size:18px;color:rgba(233,215,183,.4)">−</span>
               <div style="display:flex;flex-direction:column;gap:2px">
-                <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.lessBuild }}</span>
-                <span style="font-family:'Space Mono',monospace;font-size:15px;color:#d97a48">{{ buildFmt }}</span>
+                <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(233,215,183,.4)">{{ t.collected }}</span>
+                <span style="font-family:'Space Mono',monospace;font-size:15px;color:#d97a48">{{ collectedFmt }}</span>
               </div>
               <span style="font-size:18px;color:rgba(233,215,183,.4);margin-left:auto">=</span>
               <div style="display:flex;flex-direction:column;gap:2px;align-items:flex-end">
@@ -344,8 +344,9 @@ const T = {
     priceNoteA: 'Woningprijs = ', priceNoteB: ' − erfdeel. Vul de m² per woning in op de plattegrond →',
     terrace: '◆ DAKTERRAS', floor: 'VERDIEPING', groundFloor: 'BEGANE GROND', frontage: 'STRAATGEVEL',
     free: 'Gratis', forBuilding: 'voor de bouw', sharedNote: 'Said & Rachid — erfdeel verrekend', fromMohammed: 'erfdeel Mohammed', fullPrice: 'volle prijs', inheritance: 'erfdeel',
-    saidTitle: 'Overzicht', saidNote: 'Woningopbrengst minus de contant uit te betalen erfdelen en de bouwkosten.',
-    collected: 'Te betalen woningen', lessCash: 'Contant uit te betalen', lessBuild: 'Bouwkosten', saidNet: 'Saldo', profit: 'overschot', shortfall: 'tekort',
+    saidTitle: 'Saldo gemaakte bouwkosten plus contant uitbetaalde erfdelen minus koopsommen te ontvangen',
+    saidNote: 'Bouwkosten plus de contant uitbetaalde erfdelen, verminderd met de nog te ontvangen koopsommen.',
+    collected: 'Koopsommen te ontvangen', lessCash: 'Contant uitbetaalde erfdelen', lessBuild: 'Bouwkosten', saidNet: 'Saldo', positiveBalance: 'positief saldo', negativeBalance: 'negatief saldo',
     totalArea: 'Totale oppervlakte', gross: 'Brutowaarde', reductions: 'Kortingen toegepast', collectedShort: 'Te betalen',
     locale: 'nl-NL',
   },
@@ -361,8 +362,9 @@ const T = {
     priceNoteA: 'Prix du logement = ', priceNoteB: " − héritage. Saisissez les m² de chaque logement sur le plan →",
     terrace: '◆ TERRASSE SUR LE TOIT', floor: 'NIVEAU', groundFloor: 'REZ-DE-CHAUSSÉE', frontage: 'FAÇADE SUR RUE',
     free: 'Gratuit', forBuilding: 'pour la construction', sharedNote: 'Said & Rachid — héritage déduit', fromMohammed: 'héritage de Mohammed', fullPrice: 'plein tarif', inheritance: 'héritage',
-    saidTitle: 'Aperçu', saidNote: "Produit des logements moins les héritages à payer en espèces et les coûts de construction.",
-    collected: 'Logements à payer', lessCash: 'À payer en espèces', lessBuild: 'Construction', saidNet: 'Solde', profit: 'excédent', shortfall: 'déficit',
+    saidTitle: 'Solde des coûts de construction engagés plus les héritages payés en espèces moins les sommes de vente à recevoir',
+    saidNote: "Coûts de construction plus les héritages payés en espèces, moins les sommes de vente encore à recevoir.",
+    collected: 'Sommes de vente à recevoir', lessCash: 'Héritages payés en espèces', lessBuild: 'Construction', saidNet: 'Solde', positiveBalance: 'solde positif', negativeBalance: 'solde négatif',
     totalArea: 'Surface totale', gross: 'Valeur brute', reductions: 'Réductions appliquées', collectedShort: 'À payer',
     locale: 'fr-FR',
   },
@@ -503,8 +505,8 @@ class Component extends DCLogic {
 
     // ---- Said's bottom line ----
     const construction = num(s.construction);
-    const saidNet = collected - cashTotal - construction;
-    const saidProfit = saidNet >= 0;
+    const saidNet = construction + cashTotal - collected;
+    const saidPositive = saidNet >= 0;
 
     return {
       ...base,
@@ -529,8 +531,8 @@ class Component extends DCLogic {
       grossFmt: '≈ ' + fmt(grossTotal), reductionsFmt: fmt(reductions), collectedFmt: '≈ ' + fmt(collected),
 
       cashOutFmt: fmt(cashTotal), buildFmt: fmt(construction),
-      saidNetFmt: '≈ ' + fmt(saidNet), saidNetTag: saidProfit ? t.profit : t.shortfall,
-      saidNetCol: saidProfit ? '#8fbf93' : '#e89a72',
+      saidNetFmt: '≈ ' + fmt(saidNet), saidNetTag: saidPositive ? t.positiveBalance : t.negativeBalance,
+      saidNetCol: saidPositive ? '#e89a72' : '#8fbf93',
 
       toggleFund: () => this.setState(st => ({ fundOpen: !st.fundOpen })),
       onGround: (e) => this.setState({ ground: e.target.value }),
